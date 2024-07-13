@@ -61,5 +61,7 @@ Create `.env` file in the root of the projects with this values:
 
 ```bash
 CLIENT_ID="450278741366-7sluuc5b407ef92la4f4dd0ks06avb15.apps.googleusercontent.com"
+API_URL="https://pro-api.coinmarketcap.com"
+API_KEY="3471a9f0-fc4d-4826-8d5f-ef9081c6c767"
 ```
 
