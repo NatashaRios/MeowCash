@@ -1,4 +1,10 @@
 {
   "name": "MeowCash",
-  "displayName": "MeowCash"
+  "displayName": "MeowCash",
+  "ios": {
+    "bundleIdentifier": "com.meowcash"
+  },
+  "android": {
+    "package": "com.meowcash"
+  }
 }
