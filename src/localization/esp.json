@@ -2,5 +2,9 @@
   "login": {
     "title": "Meow Cash",
     "button": "Iniciar sesión con Google"
+  },
+  "home": {
+    "title": "Meow Cash",
+    "price": "{{price}} USD"
   }
 }

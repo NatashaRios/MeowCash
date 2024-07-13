@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Alert, Image, SafeAreaView } from 'react-native';
+import { ActivityIndicator, Alert, Image, SafeAreaView } from 'react-native';
 import { styles } from './styles';
 import { Button, Heading1, Spacer } from '@/components';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Login'>;
 
 export const Login: FC<NavigationProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { loginMutate, isSuccess, isError } = useLoginGoogle();
+  const { loginMutate, isSuccess, isError, isPending } = useLoginGoogle();
 
   useEffect(() => {
     if (isSuccess) {
@@ -32,11 +32,15 @@ export const Login: FC<NavigationProps> = ({ navigation }) => {
       <Image source={require('@/assets/images/logo.png')} />
       <Heading1 text={t('login.title')} accessibilityLabel={t('login.title')} />
       <Spacer marginVertical={30} />
-      <Button
-        title={t('login.button')}
-        onPress={handleLoginPress}
-        accessibilityLabel={t('login.button')}
-      />
+      {isPending ? (
+        <ActivityIndicator />
+      ) : (
+        <Button
+          title={t('login.button')}
+          onPress={handleLoginPress}
+          accessibilityLabel={t('login.button')}
+        />
+      )}
     </SafeAreaView>
   );
 };
