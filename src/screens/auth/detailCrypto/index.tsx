@@ -28,8 +28,12 @@ export const DetailCrypto: FC<NavigationProps> = ({ navigation, route }) => {
 
   const cryptoData = data?.data ? Object.values(data.data) : [];
   const crypto = cryptoData.length > 0 ? cryptoData[0] : undefined;
-  isLoading && <ActivityIndicator />;
 
+  if (isLoading || !data) {
+    <ActivityIndicator />;
+  }
+
+  console.log(data);
   return (
     <SafeAreaView style={styles.container}>
       <Header

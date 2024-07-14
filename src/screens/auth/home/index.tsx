@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
-import { CryptoInformation, Heading2 } from '@/components';
+import { CryptoInformation, Heading2, Input } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
@@ -46,14 +46,10 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
       <View style={styles.topContent}>
         <Heading2 text={t('home.title')} accessibilityLabel={t('home.title')} />
       </View>
-      <TextInput
-        style={styles.input}
+      <Input
         placeholder={t('home.search')}
-        placeholderTextColor={colors.pink}
         value={searchText}
         onChangeText={handleSearch}
-        accessibilityRole="search"
-        accessible={true}
       />
       <FlatList
         data={searchText.length > 0 ? filteredData : data?.data || []}

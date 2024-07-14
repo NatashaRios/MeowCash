@@ -1,9 +1,11 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Config from 'react-native-config';
 import auth from '@react-native-firebase/auth';
+import { Platform } from 'react-native';
 
 GoogleSignin.configure({
-  webClientId: Config.CLIENT_ID,
+  webClientId:
+    Platform.OS === 'ios' ? Config.CLIENT_ID_IOS : Config.ClIENT_ID_ANDROID,
 });
 
 export const loginGoogle = async (): Promise<string> => {

@@ -8,3 +8,4 @@ export * from './commons/text/text2';
 export * from './home/cryptoInformation';
 export * from './detailCrypto/header';
 export * from './detailCrypto/details';
+export * from './commons/input';
