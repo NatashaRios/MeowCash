@@ -18,6 +18,7 @@ export const useGetCryptoQuotesLatestById = (
   >({
     queryKey: ['getCryptoQuotesLatestById'],
     queryFn: () => getCryptoQuotesLatestById(id),
+    refetchInterval: 30000,
   });
 
   return { data, isLoading, isError, refetch };

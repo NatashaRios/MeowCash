@@ -16,7 +16,7 @@ export const Input: FC<IProps> = ({ placeholder, value, onChangeText }) => {
       placeholder={placeholder}
       placeholderTextColor={colors.pink}
       value={value}
-      onChangeText={() => onChangeText(value)}
+      onChangeText={onChangeText}
       accessibilityRole="search"
       accessible={true}
     />

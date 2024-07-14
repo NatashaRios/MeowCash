@@ -12,7 +12,7 @@
   "detailCrypto": {
     "backButton": "Botón hacia atrás",
     "price": "{{price}} USD",
-    "volume": "Volumen de comercio en 24 horas:\n{{volume}} USD",
+    "volume": "Volumen(24hs):\n{{volume}} USD",
     "buttonAdd": "Agregar {{crypto}} a favoritos",
     "buttonRemove": "Eliminar {{crypto}} de favoritos"
   }
