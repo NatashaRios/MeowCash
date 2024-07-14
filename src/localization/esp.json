@@ -5,7 +5,8 @@
   },
   "home": {
     "title": "Meow Cash",
-    "price": "{{price}} USD"
+    "price": "{{price}} USD",
+    "search": "Buscar"
   },
   "detailCrypto": {
     "backButton": "Botón hacia atrás",
