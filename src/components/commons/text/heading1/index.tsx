@@ -11,7 +11,8 @@ export const Heading1: FC<IProps> = ({ text, accessibilityLabel }) => {
     <Text
       style={styles.text}
       accessible={true}
-      accessibilityLabel={accessibilityLabel}>
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="text">
       {text}
     </Text>
   );

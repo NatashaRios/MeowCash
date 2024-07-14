@@ -4,6 +4,8 @@ export interface CryptoListingLatest {
   quote: {
     USD: {
       price: number;
+      percent_change_24h: number;
+      volume_24h: number;
     };
   };
   slug: string;

@@ -6,3 +6,5 @@ export * from './commons/text/heading3';
 export * from './commons/text/text1';
 export * from './commons/text/text2';
 export * from './home/cryptoInformation';
+export * from './detailCrypto/header';
+export * from './detailCrypto/details';

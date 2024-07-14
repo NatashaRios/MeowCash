@@ -4,14 +4,16 @@ import { styles } from './styles';
 
 interface IProps extends TextProps {
   text: string;
+  textAlign?: 'left' | 'right' | 'center' | 'justify';
 }
 
-export const Text1: FC<IProps> = ({ text, accessibilityLabel }) => {
+export const Text1: FC<IProps> = ({ text, accessibilityLabel, textAlign }) => {
   return (
     <Text
-      style={styles.text}
+      style={[styles.text, { textAlign }]}
       accessible={true}
-      accessibilityLabel={accessibilityLabel}>
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="text">
       {text}
     </Text>
   );

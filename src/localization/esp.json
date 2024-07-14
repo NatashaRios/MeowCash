@@ -6,5 +6,10 @@
   "home": {
     "title": "Meow Cash",
     "price": "{{price}} USD"
+  },
+  "detailCrypto": {
+    "backButton": "Botón hacia atrás",
+    "price": "{{price}} USD",
+    "volume": "Volumen de comercio en 24 horas:\n{{volume}} USD"
   }
 }
