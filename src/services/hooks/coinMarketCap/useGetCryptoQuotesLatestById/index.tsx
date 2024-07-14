@@ -6,15 +6,19 @@ interface ICryptoQuotesatest {
   data?: { data: ICrypto[] };
   isLoading: boolean;
   isError: boolean;
+  refetch: () => void;
 }
 
 export const useGetCryptoQuotesLatestById = (
   id: number,
 ): ICryptoQuotesatest => {
-  const { data, isLoading, isError } = useQuery<{ data: ICrypto[] }, Error>({
+  const { data, isLoading, isError, refetch } = useQuery<
+    { data: ICrypto[] },
+    Error
+  >({
     queryKey: ['getCryptoQuotesLatestById'],
     queryFn: () => getCryptoQuotesLatestById(id),
   });
 
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, refetch };
 };

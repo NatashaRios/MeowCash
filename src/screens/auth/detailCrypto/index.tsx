@@ -1,5 +1,11 @@
-import React, { FC } from 'react';
-import { ActivityIndicator, SafeAreaView, View } from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import {
+  ActivityIndicator,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  View,
+} from 'react-native';
 import { styles } from './styles';
 import { Button, Details, Header } from '@/components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -23,7 +29,20 @@ export const DetailCrypto: FC<NavigationProps> = ({ navigation, route }) => {
   const dispatch = useDispatch<AppDispatch>();
   const favorites = useSelector((state: RootState) => state.favorites.items);
 
-  const { data, isLoading, isError } = useGetCryptoQuotesLatestById(id);
+  const { data, isLoading, isError, refetch } =
+    useGetCryptoQuotesLatestById(id);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, [refetch]);
+
   const handleBackPress = () => navigation.goBack();
 
   const cryptoData = data?.data ? Object.values(data.data) : [];
@@ -58,28 +77,38 @@ export const DetailCrypto: FC<NavigationProps> = ({ navigation, route }) => {
         symbol={crypto?.symbol || ''}
         name={crypto?.name || ''}
       />
-      <Details
-        price={t('detailCrypto.price', {
-          price: crypto?.quote.USD.price.toFixed(2),
-        })}
-        percentChange={`${crypto?.quote.USD.percent_change_24h.toFixed(2)}%`}
-        color={
-          crypto && crypto.quote.USD.percent_change_24h < 0
-            ? colors.red
-            : colors.green
-        }
-        volume={t('detailCrypto.volume', {
-          volume: `${crypto?.quote.USD.volume_24h.toFixed(2)}`,
-        })}
-      />
-      <View style={styles.buttonContent}>
-        <Button
-          onPress={toggleFavorite}
-          title={buttonTitle}
-          accessibilityLabel={buttonTitle}
-          type="secondary"
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[colors.pink]}
+            tintColor={colors.pink}
+          />
+        }>
+        <Details
+          price={t('detailCrypto.price', {
+            price: crypto?.quote.USD.price.toFixed(2),
+          })}
+          percentChange={`${crypto?.quote.USD.percent_change_24h.toFixed(2)}%`}
+          color={
+            crypto && crypto.quote.USD.percent_change_24h < 0
+              ? colors.red
+              : colors.green
+          }
+          volume={t('detailCrypto.volume', {
+            volume: `${crypto?.quote.USD.volume_24h.toFixed(2)}`,
+          })}
         />
-      </View>
+        <View style={styles.buttonContent}>
+          <Button
+            onPress={toggleFavorite}
+            title={buttonTitle}
+            accessibilityLabel={buttonTitle}
+            type="secondary"
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
