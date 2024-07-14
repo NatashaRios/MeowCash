@@ -6,11 +6,14 @@
   "home": {
     "title": "Meow Cash",
     "price": "{{price}} USD",
-    "search": "Buscar"
+    "search": "Buscar",
+    "favorite": "Favoritos"
   },
   "detailCrypto": {
     "backButton": "Botón hacia atrás",
     "price": "{{price}} USD",
-    "volume": "Volumen de comercio en 24 horas:\n{{volume}} USD"
+    "volume": "Volumen de comercio en 24 horas:\n{{volume}} USD",
+    "buttonAdd": "Agregar {{crypto}} a favoritos",
+    "buttonRemove": "Eliminar {{crypto}} de favoritos"
   }
 }

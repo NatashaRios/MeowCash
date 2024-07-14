@@ -1,5 +1,5 @@
 import { Heading3, Text1, Text2 } from '@/components';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
 
@@ -10,8 +10,7 @@ interface IProps {
   price: string;
   onPress: (id: number) => void;
 }
-
-export const CryptoInformation: FC<IProps> = ({
+const CryptoInformation: FC<IProps> = ({
   id,
   name,
   symbol,
@@ -32,3 +31,5 @@ export const CryptoInformation: FC<IProps> = ({
     </TouchableOpacity>
   );
 };
+
+export default memo(CryptoInformation);

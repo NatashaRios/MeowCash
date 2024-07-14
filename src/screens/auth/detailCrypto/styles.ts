@@ -18,4 +18,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  buttonContent: {
+    marginHorizontal: 20,
+    marginTop: 50,
+  },
 });

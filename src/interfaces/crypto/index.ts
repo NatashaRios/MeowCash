@@ -1,4 +1,4 @@
-export interface CryptoListingLatest {
+export interface ICrypto {
   id: number;
   name: string;
   quote: {

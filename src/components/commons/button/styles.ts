@@ -4,14 +4,17 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.darkPink,
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 20,
   },
+  border: {
+    borderWidth: 1,
+    borderColor: colors.pink,
+  },
   text: {
     fontFamily: fontFamily.semiBold,
     fontSize: 20,
-    color: colors.brownBurgundyDark,
+    textAlign: 'center',
   },
 });

@@ -1,20 +1,17 @@
-import { CryptoListingLatest } from '@/interfaces/cryptoListingLatest';
+import { ICrypto } from '@/interfaces/crypto';
 import { getCryptoQuotesLatestById } from '@/services/coinMarketCap/getCryptoQuotesLatestById';
 import { useQuery } from '@tanstack/react-query';
 
-interface ICryptoListingLatest {
-  data?: { data: CryptoListingLatest[] };
+interface ICryptoQuotesatest {
+  data?: { data: ICrypto[] };
   isLoading: boolean;
   isError: boolean;
 }
 
 export const useGetCryptoQuotesLatestById = (
   id: number,
-): ICryptoListingLatest => {
-  const { data, isLoading, isError } = useQuery<
-    { data: CryptoListingLatest[] },
-    Error
-  >({
+): ICryptoQuotesatest => {
+  const { data, isLoading, isError } = useQuery<{ data: ICrypto[] }, Error>({
     queryKey: ['getCryptoQuotesLatestById'],
     queryFn: () => getCryptoQuotesLatestById(id),
   });

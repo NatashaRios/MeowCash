@@ -1,30 +1,29 @@
 import React, { FC, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-  TextInput,
-  View,
-} from 'react-native';
+import { ActivityIndicator, FlatList, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
-import { CryptoInformation, Heading2, Input } from '@/components';
+import { Heading2, Input } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
-import { colors } from '@/constants/colors';
-import { CryptoListingLatest } from '@/interfaces/cryptoListingLatest';
+import { ICrypto } from '@/interfaces/crypto';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { Favorites } from '@/components';
+import CryptoInformation from '@/components/home/cryptoInformation';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Home'>;
 
 export const Home: FC<NavigationProps> = ({ navigation }) => {
+  const favorites = useSelector((state: RootState) => state.favorites.items);
   const { data, isLoading, isError } = useGetCryptoListingLatest();
   const { t } = useTranslation();
 
-  const [filteredData, setFilteredData] = useState<CryptoListingLatest[]>();
-  const [searchText, setSearchText] = useState('');
+  const [filteredData, setFilteredData] = useState<ICrypto[]>();
+  const [value, setValue] = useState('');
+  const [isOpenFavorites, setIsOpenFavorites] = useState<boolean>(false);
 
-  const handleSearch = (text: string) => {
+  const handleSearch = (text: string): void => {
     const lowerCaseQuery = text.toLowerCase();
     const filtered = data?.data.filter(
       item =>
@@ -32,11 +31,15 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
         item.symbol.toLowerCase().includes(lowerCaseQuery),
     );
     setFilteredData(filtered);
-    setSearchText(text);
+    setValue(text);
   };
 
   const handleCryptoPress = (id: number): void => {
     navigation.navigate('DetailCrypto', { id });
+  };
+
+  const toggleFavorites = (): void => {
+    setIsOpenFavorites(!isOpenFavorites);
   };
 
   isLoading && <ActivityIndicator />;
@@ -48,11 +51,18 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
       </View>
       <Input
         placeholder={t('home.search')}
-        value={searchText}
+        value={value}
         onChangeText={handleSearch}
       />
+      <Favorites
+        onPress={toggleFavorites}
+        title={t('home.favorite')}
+        isOpen={isOpenFavorites}
+        favorites={favorites}
+        onCryptoPress={handleCryptoPress}
+      />
       <FlatList
-        data={searchText.length > 0 ? filteredData : data?.data || []}
+        data={value.length > 0 ? filteredData : data?.data || []}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item: { id, name, symbol, quote } }) => (
           <CryptoInformation
@@ -66,6 +76,9 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
         )}
         initialNumToRender={10}
         accessibilityRole="list"
+        windowSize={5}
+        maxToRenderPerBatch={10}
+        removeClippedSubviews={true}
       />
     </SafeAreaView>
   );
