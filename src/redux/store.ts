@@ -11,14 +11,21 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import favoritesReducer from './slices/favoritesSlice';
+import authReducer from './slices/authSlice';
 
-const persistConfig = {
-  key: 'root',
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+};
+
+const favoritesPersistConfig = {
+  key: 'favorites',
   storage: AsyncStorage,
 };
 
 const rootReducer = combineReducers({
-  favorites: persistReducer(persistConfig, favoritesReducer),
+  auth: persistReducer(authPersistConfig, authReducer),
+  favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
 });
 
 const store = configureStore({

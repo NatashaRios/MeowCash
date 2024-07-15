@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { ActivityIndicator, FlatList, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
-import { Heading2, Input } from '@/components';
+import { Button, Heading2, Input } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
@@ -11,11 +11,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { Favorites } from '@/components';
 import CryptoInformation from '@/components/home/cryptoInformation';
+import { useDispatch } from 'react-redux';
+import { deleteToken } from '@/services/keychain/token';
+import { logout } from '@/redux/slices/authSlice';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Home'>;
 
 export const Home: FC<NavigationProps> = ({ navigation }) => {
   const favorites = useSelector((state: RootState) => state.favorites.items);
+  const dispatch = useDispatch();
+
   const { data, isLoading, isError } = useGetCryptoListingLatest();
   const { t } = useTranslation();
 
@@ -42,6 +47,12 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
     setIsOpenFavorites(!isOpenFavorites);
   };
 
+  const handleLogoutPress = async (): Promise<void> => {
+    await deleteToken();
+    dispatch(logout());
+    navigation.navigate('Login');
+  };
+
   isLoading && <ActivityIndicator />;
 
   return (
@@ -54,13 +65,15 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
         value={value}
         onChangeText={handleSearch}
       />
-      <Favorites
-        onPress={toggleFavorites}
-        title={t('home.favorite')}
-        isOpen={isOpenFavorites}
-        favorites={favorites}
-        onCryptoPress={handleCryptoPress}
-      />
+      {favorites.length >= 1 && (
+        <Favorites
+          onPress={toggleFavorites}
+          title={t('home.favorite')}
+          isOpen={isOpenFavorites}
+          favorites={favorites}
+          onCryptoPress={handleCryptoPress}
+        />
+      )}
       <FlatList
         data={value.length > 0 ? filteredData : data?.data || []}
         keyExtractor={item => item.id.toString()}
@@ -79,6 +92,15 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
         windowSize={5}
         maxToRenderPerBatch={10}
         removeClippedSubviews={true}
+        ListFooterComponent={
+          <Button
+            onPress={handleLogoutPress}
+            title={t('home.logout')}
+            accessibilityLabel={t('home.logout')}
+            type="secondary"
+          />
+        }
+        ListFooterComponentStyle={styles.footer}
       />
     </SafeAreaView>
   );

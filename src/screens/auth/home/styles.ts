@@ -12,4 +12,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     height: 50,
   },
+  footer: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
 });

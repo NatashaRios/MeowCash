@@ -6,16 +6,20 @@ import { useTranslation } from 'react-i18next';
 import { useLoginGoogle } from '@/services/hooks/auth/useLoginGoogle';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/slices/authSlice';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Login'>;
 
 export const Login: FC<NavigationProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { loginMutate, isSuccess, isError, isPending } = useLoginGoogle();
+  const { loginMutate, isSuccess, isError, isPending, data } = useLoginGoogle();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isSuccess) {
-      navigation.navigate('Home');
+    if (isSuccess && data) {
+      dispatch(login(data));
+      // navigation.navigate('Home');
     }
 
     if (isError) {

@@ -7,6 +7,7 @@ interface ILoginResponse {
   isSuccess: boolean;
   isError: boolean;
   isPending: boolean;
+  data?: string;
 }
 
 export const useLoginGoogle = (): ILoginResponse => {
@@ -15,6 +16,7 @@ export const useLoginGoogle = (): ILoginResponse => {
     isSuccess,
     isError,
     isPending,
+    data,
   } = useMutation<string, Error>({
     mutationKey: ['loginGoogle'],
     mutationFn: loginGoogle,
@@ -23,5 +25,5 @@ export const useLoginGoogle = (): ILoginResponse => {
     },
   });
 
-  return { loginMutate, isSuccess, isError, isPending };
+  return { loginMutate, isSuccess, isError, isPending, data };
 };
