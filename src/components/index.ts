@@ -9,3 +9,5 @@ export * from './detailCrypto/header';
 export * from './detailCrypto/details';
 export * from './commons/input';
 export * from './home/favorites';
+export * from './commons/error';
+export * from './commons/loader';

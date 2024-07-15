@@ -16,5 +16,9 @@
     "volume": "Volumen(24hs):\n{{volume}} USD",
     "buttonAdd": "Agregar {{crypto}} a favoritos",
     "buttonRemove": "Eliminar {{crypto}} de favoritos"
+  },
+  "error": {
+    "titleGeneric": "Ocurrió un error",
+    "descriptionGeneric": "Inténtalo de nuevo más tarde"
   }
 }

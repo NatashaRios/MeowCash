@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import { ActivityIndicator, FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
-import { Button, Heading2, Input } from '@/components';
+import { Button, Error, Heading2, Input, Loader } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
@@ -25,7 +25,7 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
   const { t } = useTranslation();
 
   const [filteredData, setFilteredData] = useState<ICrypto[]>();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
   const [isOpenFavorites, setIsOpenFavorites] = useState<boolean>(false);
 
   const handleSearch = (text: string): void => {
@@ -53,7 +53,9 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
-  isLoading && <ActivityIndicator />;
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,43 +67,52 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
         value={value}
         onChangeText={handleSearch}
       />
-      {favorites.length >= 1 && (
-        <Favorites
-          onPress={toggleFavorites}
-          title={t('home.favorite')}
-          isOpen={isOpenFavorites}
-          favorites={favorites}
-          onCryptoPress={handleCryptoPress}
+      {isError ? (
+        <Error
+          title={t('error.titleGeneric')}
+          description={t('error.descriptionGeneric')}
         />
+      ) : (
+        <>
+          {favorites.length >= 1 && (
+            <Favorites
+              onPress={toggleFavorites}
+              title={t('home.favorite')}
+              isOpen={isOpenFavorites}
+              favorites={favorites}
+              onCryptoPress={handleCryptoPress}
+            />
+          )}
+          <FlatList
+            data={value.length > 0 ? filteredData : data?.data || []}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item: { id, name, symbol, quote } }) => (
+              <CryptoInformation
+                key={id}
+                id={id}
+                name={name}
+                symbol={symbol}
+                price={t('home.price', { price: quote.USD.price.toFixed(2) })}
+                onPress={handleCryptoPress}
+              />
+            )}
+            initialNumToRender={10}
+            accessibilityRole="list"
+            windowSize={5}
+            maxToRenderPerBatch={10}
+            removeClippedSubviews={true}
+            ListFooterComponent={
+              <Button
+                onPress={handleLogoutPress}
+                title={t('home.logout')}
+                accessibilityLabel={t('home.logout')}
+                type="secondary"
+              />
+            }
+            ListFooterComponentStyle={styles.footer}
+          />
+        </>
       )}
-      <FlatList
-        data={value.length > 0 ? filteredData : data?.data || []}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item: { id, name, symbol, quote } }) => (
-          <CryptoInformation
-            key={id}
-            id={id}
-            name={name}
-            symbol={symbol}
-            price={t('home.price', { price: quote.USD.price.toFixed(2) })}
-            onPress={handleCryptoPress}
-          />
-        )}
-        initialNumToRender={10}
-        accessibilityRole="list"
-        windowSize={5}
-        maxToRenderPerBatch={10}
-        removeClippedSubviews={true}
-        ListFooterComponent={
-          <Button
-            onPress={handleLogoutPress}
-            title={t('home.logout')}
-            accessibilityLabel={t('home.logout')}
-            type="secondary"
-          />
-        }
-        ListFooterComponentStyle={styles.footer}
-      />
     </SafeAreaView>
   );
 };

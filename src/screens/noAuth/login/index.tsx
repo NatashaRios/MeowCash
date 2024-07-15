@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
-import { ActivityIndicator, Alert, Image, SafeAreaView } from 'react-native';
+import { Alert, Image, SafeAreaView } from 'react-native';
 import { styles } from './styles';
-import { Button, Heading1, Spacer } from '@/components';
+import { Button, Heading1, Loader, Spacer } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { useLoginGoogle } from '@/services/hooks/auth/useLoginGoogle';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -19,7 +19,6 @@ export const Login: FC<NavigationProps> = ({ navigation }) => {
   useEffect(() => {
     if (isSuccess && data) {
       dispatch(login(data));
-      // navigation.navigate('Home');
     }
 
     if (isError) {
@@ -37,7 +36,7 @@ export const Login: FC<NavigationProps> = ({ navigation }) => {
       <Heading1 text={t('login.title')} accessibilityLabel={t('login.title')} />
       <Spacer marginVertical={30} />
       {isPending ? (
-        <ActivityIndicator />
+        <Loader />
       ) : (
         <Button
           title={t('login.button')}
