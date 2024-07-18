@@ -66,3 +66,17 @@ API_URL="https://pro-api.coinmarketcap.com"
 API_KEY="3471a9f0-fc4d-4826-8d5f-ef9081c6c767"
 ```
 
+## Technologies and Libraries
+
+```bash
+- React Native with TypeScript: building mobile applications.
+- @react-navigation/native: navigation.
+- i18next: translation.
+- react-native-config: managing environment-specific configurations.
+- react-native-keychain: securely storing sensitive information like tokens.
+- react-redux: managing the application state with Redux in a React Native app.
+- redux-persist: persisting the Redux state across sessions.
+- @tanstack/react-query: managing server state and asynchronous data fetching.
+- jest: testing.
+
+```
