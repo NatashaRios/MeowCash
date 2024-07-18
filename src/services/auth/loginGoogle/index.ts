@@ -17,7 +17,6 @@ export const loginGoogle = async (): Promise<string> => {
     const token = await authentication.user.getIdToken();
     return token;
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       throw new Error(`Google sign-in failed: ${error.message}`);
     } else {
