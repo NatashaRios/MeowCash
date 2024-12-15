@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { render, waitFor } from '@testing-library/react-native';
-import { useLoginGoogle } from '@/services/hooks/auth/useLoginGoogle';
-import { setToken } from '@/services/keychain/token';
+import { useLoginGoogle, setToken } from '@/services';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ActivityIndicator, Text } from 'react-native';
 

@@ -1,18 +1,15 @@
 import React, { FC, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
-import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
-import { Button, Error, Heading2, Input, Loader } from '@/components';
+import { useGetCryptoListingLatest, deleteToken } from '@/services';
+import { Button, Error, Heading2, Input, Loader, Favorites, MemoizedCryptoInformation } from '@/components';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
 import { ICrypto } from '@/interfaces/crypto';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { Favorites } from '@/components';
-import CryptoInformation from '@/components/home/cryptoInformation';
 import { useDispatch } from 'react-redux';
-import { deleteToken } from '@/services/keychain/token';
 import { logout } from '@/redux/slices/authSlice';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Home'>;
@@ -87,7 +84,7 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
             data={value.length > 0 ? filteredData : data?.data || []}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item: { id, name, symbol, quote } }) => (
-              <CryptoInformation
+              <MemoizedCryptoInformation
                 key={id}
                 id={id}
                 name={name}

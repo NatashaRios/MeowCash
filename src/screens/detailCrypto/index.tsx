@@ -5,7 +5,7 @@ import { Button, Details, Header, Loader, Error } from '@/components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
 import { useTranslation } from 'react-i18next';
-import { useGetCryptoQuotesLatestById } from '@/services/hooks/coinMarketCap/useGetCryptoQuotesLatestById';
+import { useGetCryptoQuotesLatestById } from '@/services';
 import { colors } from '@/constants/colors';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';

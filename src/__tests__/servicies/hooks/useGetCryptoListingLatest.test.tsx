@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useGetCryptoListingLatest } from '@/services/hooks/coinMarketCap/useGetCryptoListingLatest';
+import { useGetCryptoListingLatest } from '@/services';
 import { ActivityIndicator, Text, FlatList } from 'react-native';
 
 jest.mock('@/services/hooks/coinMarketCap/useGetCryptoListingLatest');

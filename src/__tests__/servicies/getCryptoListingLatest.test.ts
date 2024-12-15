@@ -1,4 +1,4 @@
-import { getCryptoListingLatest } from '@/services/coinMarketCap/getCryptoListingLatest';
+import { getCryptoListingLatest } from '@/services';
 import Config from 'react-native-config';
 
 (fetch as jest.Mock) = jest.fn(() =>

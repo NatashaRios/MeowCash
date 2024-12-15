@@ -1,0 +1,10 @@
+export { Heading1 } from './text/heading1';
+export { Heading2 } from './text/heading2';
+export { Heading3 } from './text/heading3';
+export { Text1 } from './text/text1';
+export { Text2 } from './text/text2';
+export { Button } from './button';
+export { Error } from './error';
+export { Input } from './input';
+export { Loader } from './loader';
+export { Spacer } from './spacer';

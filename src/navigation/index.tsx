@@ -1,10 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from '@/screens/noAuth/login';
-import { Home } from '@/screens/auth/home';
-import { DetailCrypto } from '@/screens/auth/detailCrypto';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { DetailCrypto, Home, Login } from '@/screens';
 
 interface IDetailCryptoProps {
   id: number;

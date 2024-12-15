@@ -1,4 +1,4 @@
-import { getCryptoQuotesLatestById } from '@/services/coinMarketCap/getCryptoQuotesLatestById';
+import { getCryptoQuotesLatestById } from '@/services';
 import Config from 'react-native-config';
 
 (fetch as jest.Mock) = jest.fn(() =>

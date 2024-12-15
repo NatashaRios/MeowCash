@@ -3,7 +3,7 @@ import { Alert, Image, SafeAreaView } from 'react-native';
 import { styles } from './styles';
 import { Button, Heading1, Loader, Spacer } from '@/components';
 import { useTranslation } from 'react-i18next';
-import { useLoginGoogle } from '@/services/hooks/auth/useLoginGoogle';
+import { useLoginGoogle } from '@/services';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamsList } from '@/navigation';
 import { useDispatch } from 'react-redux';

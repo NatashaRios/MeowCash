@@ -1,4 +1,4 @@
-import { Heading3, Text1, Text2 } from '@/components';
+import { Heading3, Text1 } from '@/components';
 import React, { FC, memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { styles } from './styles';
@@ -10,6 +10,7 @@ interface IProps {
   price: string;
   onPress: (id: number) => void;
 }
+
 const CryptoInformation: FC<IProps> = ({
   id,
   name,
@@ -32,4 +33,4 @@ const CryptoInformation: FC<IProps> = ({
   );
 };
 
-export default memo(CryptoInformation);
+export const MemoizedCryptoInformation = memo(CryptoInformation);

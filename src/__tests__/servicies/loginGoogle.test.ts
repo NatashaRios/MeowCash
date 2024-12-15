@@ -1,6 +1,6 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { loginGoogle } from '@/services/auth/loginGoogle';
+import { loginGoogle } from '@/services';
 
 jest.mock('@react-native-google-signin/google-signin', () => ({
   GoogleSignin: {

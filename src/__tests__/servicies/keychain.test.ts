@@ -1,5 +1,5 @@
 import * as Keychain from 'react-native-keychain';
-import { setToken, getToken, deleteToken } from '@/services/keychain/token';
+import { setToken, getToken, deleteToken } from '@/services';
 
 jest.mock('react-native-keychain', () => ({
   setGenericPassword: jest.fn(),

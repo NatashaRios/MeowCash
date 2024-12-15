@@ -4,7 +4,7 @@ import { FlatList, Pressable, View } from 'react-native';
 import { styles } from './styles';
 import { ICrypto } from '@/interfaces/crypto';
 import { useTranslation } from 'react-i18next';
-import CryptoInformation from '../cryptoInformation';
+import { MemoizedCryptoInformation } from '../cryptoInformation';
 
 interface IProps {
   onPress: () => void;
@@ -41,7 +41,7 @@ export const Favorites: FC<IProps> = ({
           data={favorites}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item: { id, name, symbol, quote } }) => (
-            <CryptoInformation
+            <MemoizedCryptoInformation
               key={id}
               id={id}
               name={name}
