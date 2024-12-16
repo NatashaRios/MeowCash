@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest, deleteToken } from '@/services';
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/slices/authSlice';
+import { useDebounce } from 'use-debounce';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Home'>;
 
@@ -23,32 +24,41 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
 
   const [filteredData, setFilteredData] = useState<ICrypto[]>();
   const [value, setValue] = useState<string>('');
+  const [debouncedText] = useDebounce(value, 1000);
   const [isOpenFavorites, setIsOpenFavorites] = useState<boolean>(false);
 
-  const handleSearch = (text: string): void => {
-    const lowerCaseQuery = text.toLowerCase();
-    const filtered = data?.data.filter(
-      item =>
-        item.name.toLowerCase().includes(lowerCaseQuery) ||
-        item.symbol.toLowerCase().includes(lowerCaseQuery),
-    );
-    setFilteredData(filtered);
-    setValue(text);
-  };
+  useEffect(() => {
+    if (debouncedText) {
+      const lowerCaseQuery = debouncedText.toLowerCase();
+      const filtered = data?.data.filter(
+        item =>
+          item.name.toLowerCase().includes(lowerCaseQuery) ||
+          item.symbol.toLowerCase().includes(lowerCaseQuery),
+      );
+      setFilteredData(filtered);
+    }
+  }, [debouncedText, data])
 
-  const handleCryptoPress = (id: number): void => {
+
+  const handleSearch = useCallback((text: string): void => {
+    setValue(text);
+  }, []);
+
+
+  const handleCryptoPress = useCallback((id: number): void => {
     navigation.navigate('DetailCrypto', { id });
-  };
+  }, [navigation]);
+
 
   const toggleFavorites = (): void => {
     setIsOpenFavorites(!isOpenFavorites);
   };
 
-  const handleLogoutPress = async (): Promise<void> => {
+  const handleLogoutPress = useCallback(async (): Promise<void> => {
     await deleteToken();
     dispatch(logout());
-    navigation.navigate('Login');
-  };
+  }, [dispatch]);
+
 
   if (isLoading) {
     return <Loader />;
