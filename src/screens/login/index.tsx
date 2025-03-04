@@ -11,14 +11,14 @@ import { login } from '@/redux/slices/authSlice';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamsList, 'Login'>;
 
-export const Login: FC<NavigationProps> = ({ navigation }) => {
+export const Login: FC = () => {
   const { t } = useTranslation();
   const { loginMutate, isSuccess, isError, isPending, data } = useLoginGoogle();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isSuccess && data) {
-      dispatch(login(data));
+      dispatch(login());
     }
 
     if (isError) {
