@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList, Image, SafeAreaView, View } from 'react-native';
 import { styles } from './styles';
 import { useGetCryptoListingLatest, deleteToken } from '@/services';
 import { Button, Error, Heading2, Input, Loader, Favorites, MemoizedCryptoInformation } from '@/components';
@@ -22,23 +22,22 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
   const { data, isLoading, isError } = useGetCryptoListingLatest();
   const { t } = useTranslation();
 
-  const [filteredData, setFilteredData] = useState<ICrypto[]>();
+  const [filteredData, setFilteredData] = useState<ICrypto[]>(data?.data || []);
   const [value, setValue] = useState<string>('');
   const [debouncedText] = useDebounce(value, 1000);
   const [isOpenFavorites, setIsOpenFavorites] = useState<boolean>(false);
 
   useEffect(() => {
-    if (debouncedText) {
+    if (debouncedText.trim()) {
       const lowerCaseQuery = debouncedText.toLowerCase();
       const filtered = data?.data.filter(
         item =>
           item.name.toLowerCase().includes(lowerCaseQuery) ||
           item.symbol.toLowerCase().includes(lowerCaseQuery),
       );
-      setFilteredData(filtered);
-    }
+      setFilteredData(filtered || []);
+    } else setFilteredData(data?.data || []);
   }, [debouncedText, data])
-
 
   const handleSearch = useCallback((text: string): void => {
     setValue(text);
@@ -67,6 +66,7 @@ export const Home: FC<NavigationProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContent}>
+        <Image source={require('@/assets/images/logo.png')} style={styles.logo} />
         <Heading2 text={t('home.title')} accessibilityLabel={t('home.title')} />
       </View>
       <Input

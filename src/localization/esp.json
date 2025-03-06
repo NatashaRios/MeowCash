@@ -20,5 +20,6 @@
   "error": {
     "titleGeneric": "Ocurrió un error",
     "descriptionGeneric": "Inténtalo de nuevo más tarde"
-  }
+  },
+  "loader": "Cargando"
 }

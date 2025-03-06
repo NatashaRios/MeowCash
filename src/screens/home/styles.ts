@@ -11,6 +11,12 @@ export const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 40,
+    height: 40,
   },
   footer: {
     marginHorizontal: 20,
