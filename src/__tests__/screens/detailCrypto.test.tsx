@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { DetailCrypto } from '@/screens/DetailCrypto';
+import { DetailCrypto } from '@/screens';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { configureStore } from '@reduxjs/toolkit';
