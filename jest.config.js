@@ -4,7 +4,7 @@ module.exports = {
   preset: 'react-native',
   clearMocks: true,
   testEnvironment: 'node',
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: [],
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@react-native-community|@react-navigation)',
   ],
